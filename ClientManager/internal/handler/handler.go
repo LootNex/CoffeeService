@@ -1,0 +1,40 @@
+package handler
+
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+
+	"github.com/LootNex/CoffeeService/ClientManager/internal/service"
+	"github.com/LootNex/CoffeeService/ClientManager/pkg/models"
+)
+
+type Handler struct {
+	OrderService *service.OrderService
+}
+
+func Newhandler(s *service.OrderService) Handler {
+	return Handler{
+		OrderService: s,
+	}
+}
+
+func (h Handler) CreateOrderHandler(w http.ResponseWriter, r *http.Request) {
+
+	order := new(models.Order)
+
+	err := json.NewDecoder(r.Body).Decode(order)
+	if err != nil {
+		http.Error(w, "cannot decode order", http.StatusBadRequest)
+		return
+	}
+
+	err = h.OrderService.CreateOrder(*order)
+	if err != nil {
+		http.Error(w, "cannot send order", http.StatusInternalServerError)
+		return
+	}
+
+	log.Println("order created")
+
+}
