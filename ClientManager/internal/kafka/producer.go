@@ -13,6 +13,19 @@ type OrderProducer interface {
 	Send(Order models.Order) error
 }
 
+/*
+
+Данная часть кода использует при тестировании работы метода Send
+
+type KafkaWriter interface {
+	WriteMessages(ctx context.Context, msgs ...kafka.Message) error
+}
+
+type KafkaProducer struct {
+	Writer KafkaWriter
+}
+*/
+
 type KafkaProducer struct {
 	Writer *kafka.Writer
 }

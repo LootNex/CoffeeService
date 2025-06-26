@@ -3,31 +3,40 @@ package kafka
 import (
 	"context"
 	"log"
-	"time"
 
 	"github.com/segmentio/kafka-go"
 )
 
-func KafkaConsumer(brokers []string, topic string) error {
+type KafkaReader interface {
+	Close() error
+	ReadMessage(context.Context) (kafka.Message, error)
+}
 
-	reader := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:  brokers,
-		GroupID:  "coffee-prep-service",
-		Topic:    topic,
-		MinBytes: 10e3,
-		MaxBytes: 10e6,
-		MaxWait:  1 * time.Second,
-	})
+type ReadKafkaReader struct {
+	Reader *kafka.Reader
+}
+
+func (r *ReadKafkaReader) Close() error {
+	return r.Reader.Close()
+}
+
+func (r *ReadKafkaReader) ReadMessage(ctx context.Context) (kafka.Message, error) {
+	return r.Reader.ReadMessage(ctx)
+}
+
+func KafkaConsumer(reader KafkaReader, handle func(kafka.Message)) error {
+
+	log.Println("Kafka consumer is ready")
 
 	defer reader.Close()
 
-	log.Println("waiting for messages...")
-
 	for {
+		log.Println("waiting for messages...")
 		msg, err := reader.ReadMessage(context.Background())
 		if err != nil {
-			log.Fatal("error reading message:", err)
+			log.Printf("error reading message: %v", err)
+			return err
 		}
-		log.Printf("received message: value=%s", string(msg.Value))
+		handle(msg)
 	}
 }

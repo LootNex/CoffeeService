@@ -10,10 +10,10 @@ import (
 )
 
 type Handler struct {
-	OrderService *service.OrderService
+	OrderService service.OrderCreator
 }
 
-func Newhandler(s *service.OrderService) Handler {
+func Newhandler(s service.OrderCreator) Handler {
 	return Handler{
 		OrderService: s,
 	}

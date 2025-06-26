@@ -11,6 +11,10 @@ type OrderService struct {
 	Service kafka.OrderProducer
 }
 
+type OrderCreator interface {
+	CreateOrder(order models.Order) error
+}
+
 func NewOrderService(p kafka.OrderProducer) OrderService {
 	return OrderService{
 		Service: p,
