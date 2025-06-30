@@ -1,0 +1,4 @@
+kafka:
+  topic: orders
+  brokers:
+    - kafka:9092

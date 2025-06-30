@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/LootNex/CoffeeService/ClientManager/internal/kafka"
-	"github.com/LootNex/CoffeeService/ClientManager/pkg/models"
+	"github.com/LootNex/CoffeeService/ClientManager/internal/models"
 )
 
 type OrderService struct {

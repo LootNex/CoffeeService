@@ -45,7 +45,7 @@ func TestKafkaConsumer(t *testing.T) {
 		received = append(received, string(msg.Value))
 	}
 
-	err := KafkaConsumer(mock, handle)
+	err := KafkaConsumer(context.Background(), mock, handle)
 
 	if err.Error() != "slice messages is empty" && err != nil {
 		t.Errorf("unexpected err %v", err)

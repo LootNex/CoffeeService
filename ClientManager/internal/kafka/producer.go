@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/LootNex/CoffeeService/ClientManager/pkg/models"
+	"github.com/LootNex/CoffeeService/ClientManager/internal/models"
 	"github.com/segmentio/kafka-go"
 	"github.com/segmentio/kafka-go/compress"
 )

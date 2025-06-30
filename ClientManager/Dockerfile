@@ -17,6 +17,8 @@ WORKDIR /root/
 
 COPY --from=builder /ClientManager/cmd/main .
 
+COPY --from=builder /ClientManager/configs/config.yaml ./config.yaml
+
 EXPOSE 8081
 
 CMD ["./main"]

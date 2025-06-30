@@ -17,4 +17,6 @@ WORKDIR /root/
 
 COPY --from=builder /CoffeeMaker/cmd/main .
 
+COPY --from=builder /CoffeeMaker/configs/config.yaml ./config.yaml
+
 CMD ["./main"]

@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/LootNex/CoffeeService/ClientManager/pkg/models"
+	"github.com/LootNex/CoffeeService/ClientManager/internal/models"
 )
 
 type MockOrderService struct {

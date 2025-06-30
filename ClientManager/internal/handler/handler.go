@@ -2,11 +2,12 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/LootNex/CoffeeService/ClientManager/internal/models"
 	"github.com/LootNex/CoffeeService/ClientManager/internal/service"
-	"github.com/LootNex/CoffeeService/ClientManager/pkg/models"
 )
 
 type Handler struct {
@@ -31,7 +32,7 @@ func (h Handler) CreateOrderHandler(w http.ResponseWriter, r *http.Request) {
 
 	err = h.OrderService.CreateOrder(*order)
 	if err != nil {
-		http.Error(w, "cannot send order", http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("cannot send order err:%v", err), http.StatusInternalServerError)
 		return
 	}
 

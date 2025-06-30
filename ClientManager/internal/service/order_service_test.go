@@ -3,7 +3,7 @@ package service
 import (
 	"testing"
 
-	"github.com/LootNex/CoffeeService/ClientManager/pkg/models"
+	"github.com/LootNex/CoffeeService/ClientManager/internal/models"
 )
 
 type MockSend struct {
